@@ -1,7 +1,6 @@
 #include "../common.hpp"
 
 #include <iostream>
-#include <iterator>
 #include <string>
 #include <regex>
 
@@ -25,7 +24,7 @@ uint16_t getMaxFromAllResults(const std::string &input, const std::regex &re) {
         match = *it;
 
         auto numericalCount = std::stoi(match.str(1));
-        if(numericalCount > max) {
+        if (numericalCount > max) {
             max = numericalCount;
         }
     }
@@ -34,8 +33,9 @@ uint16_t getMaxFromAllResults(const std::string &input, const std::regex &re) {
 
 int main() {
     auto lines = common::loadTxtLineByLine("../day02/input.txt");
-    uint16_t sum = 0;
 
+    // Part 1
+    uint16_t sum = 0;
     for (const auto &line: lines) {
         std::regex redExpression(R"((\d+)\s+red)");
         auto maxRedCount = getMaxFromAllResults(line, redExpression);
@@ -52,7 +52,24 @@ int main() {
         auto gameId = getGameId(line);
         sum += gameId;
     }
+    std::cout << "Part 1 result: " << sum << std::endl;
 
-    std::cout << sum;
+    // Part 2
+    uint64_t sum_of_powers = 0;
+    for (const auto &line: lines) {
+        std::regex redExpression(R"((\d+)\s+red)");
+        auto maxRedCount = getMaxFromAllResults(line, redExpression);
+
+        std::regex greenExpression(R"((\d+)\s+green)");
+        auto maxGreenCount = getMaxFromAllResults(line, greenExpression);
+
+        std::regex blueExpression(R"((\d+)\s+blue)");
+        auto maxBlueCount = getMaxFromAllResults(line, blueExpression);
+
+        auto power = maxRedCount * maxGreenCount * maxBlueCount;
+        sum_of_powers += power;
+    }
+    std::cout << "Part 2 result: " << sum_of_powers << std::endl;
+
     return EXIT_SUCCESS;
 }
