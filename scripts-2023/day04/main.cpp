@@ -19,16 +19,6 @@ inline static bool isPipe(const char &c) {
     return c == '|';
 }
 
-std::set<uint16_t> stringToSet(const std::string &setStr) {
-    std::stringstream ss(setStr);
-    std::stringstream tmp;
-    std::istream_iterator<uint16_t> begin(ss);
-    std::istream_iterator<uint16_t> end;
-    std::set<uint16_t> uintSet(begin, end);
-    std::copy(uintSet.begin(), uintSet.end(), std::ostream_iterator<uint16_t>(tmp));
-    return uintSet;
-}
-
 std::pair<std::set<uint16_t>, std::set<uint16_t>> getNumberLists(const std::string &line) {
     std::pair<std::set<uint16_t>, std::set<uint16_t>> sets;
     size_t start_idx = 0, end_idx = 0;
@@ -42,8 +32,8 @@ std::pair<std::set<uint16_t>, std::set<uint16_t>> getNumberLists(const std::stri
         if (start_idx > 0 && end_idx > 0) {
             auto set1Str = std::string(&line[start_idx], &line[end_idx - 1]);
             auto set2Str = std::string(&line[end_idx + 1], &line[line.length()]);
-            sets.first = stringToSet(set1Str);
-            sets.second = stringToSet(set2Str);
+            sets.first = common::stringToSet(set1Str);
+            sets.second = common::stringToSet(set2Str);
             break;
         }
     }

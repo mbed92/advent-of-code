@@ -20,4 +20,26 @@ namespace common {
         }
         return lines;
     }
+
+    std::vector<size_t>
+    stringToVec(const std::string &str) {
+        std::stringstream ss(str);
+        std::stringstream tmp;
+        std::istream_iterator<size_t> begin(ss);
+        std::istream_iterator<size_t> end;
+        std::vector<size_t> vec(begin, end);
+        std::copy(vec.begin(), vec.end(), std::ostream_iterator<size_t>(tmp));
+        return vec;
+    }
+
+    std::set<uint16_t>
+    stringToSet(const std::string &setStr) {
+        std::stringstream ss(setStr);
+        std::stringstream tmp;
+        std::istream_iterator<uint16_t> begin(ss);
+        std::istream_iterator<uint16_t> end;
+        std::set<uint16_t> uintSet(begin, end);
+        std::copy(uintSet.begin(), uintSet.end(), std::ostream_iterator<uint16_t>(tmp));
+        return uintSet;
+    }
 }
