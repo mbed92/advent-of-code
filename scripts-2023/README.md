@@ -340,7 +340,8 @@ You barely have time to agree to this request when he brings up another. "While 
 help us with our food production problem. The latest Island Island Almanac just arrived and we're having trouble making
 sense of it."
 
-The almanac (your puzzle input) lists all of the seeds_string that need to be planted. It also lists what type of soil to use
+The almanac (your puzzle input) lists all of the seeds_string that need to be planted. It also lists what type of soil
+to use
 with each kind of seed, what type of fertilizer to use with each kind of soil, what type of water to use with each kind
 of fertilizer, and so on. Every type of seed, soil, fertilizer and so on is identified with a number, but numbers are
 reused by each category - that is, soil 123 and fertilizer 123 aren't necessarily related to each other.
@@ -390,7 +391,8 @@ numbers in a destination category. That is, the section that starts with seed-to
 seed number (the source) to a soil number (the destination). This lets the gardener and his team know which soil to use
 with which seeds_string, which water to use with which fertilizer, and so on.
 
-Rather than list every source number and its corresponding destination number one by one, the map_strings describe entire
+Rather than list every source number and its corresponding destination number one by one, the map_strings describe
+entire
 ranges of numbers that can be converted. Each line within a map contains three numbers: the destination range start, the
 source range start, and the range length.
 
@@ -439,7 +441,8 @@ Seed number 55 corresponds to soil number 57.
 Seed number 13 corresponds to soil number 13.
 
 The gardener and his team want to get started as soon as possible, so they'd like to know the closest location that
-needs a seed. Using these map_strings, find the lowest location number that corresponds to any of the initial seeds_string. To do
+needs a seed. Using these map_strings, find the lowest location number that corresponds to any of the initial
+seeds_string. To do
 this, you'll need to convert each seed number through other categories until you can find its corresponding location
 number. In this example, the corresponding types are:
 
@@ -451,6 +454,30 @@ Seed 13, soil 13, fertilizer 52, water 41, light 34, temperature 34, humidity 35
 So, the lowest location number in this example is 35.
 
 What is the lowest location number that corresponds to any of the initial seed numbers?
+
+### Part 2:
+
+Everyone will starve if you only plant such a small number of seeds. Re-reading the almanac, it looks like the seeds:
+line actually describes ranges of seed numbers.
+
+The values on the initial seeds: line come in pairs. Within each pair, the first value is the start of the range and the
+second value is the length of the range. So, in the first line of the example above:
+
+```
+seeds: 79 14 55 13
+```
+
+This line describes two ranges of seed numbers to be planted in the garden. The first range starts with seed number 79
+and contains 14 values: 79, 80, ..., 91, 92. The second range starts with seed number 55 and contains 13 values: 55,
+56, ..., 66, 67.
+
+Now, rather than considering four seed numbers, you need to consider a total of 27 seed numbers.
+
+In the above example, the lowest location number can be obtained from seed number 82, which corresponds to soil 84,
+fertilizer 84, water 84, light 77, temperature 45, humidity 46, and location 46. So, the lowest location number is 46.
+
+Consider all of the initial seed numbers listed in the ranges on the first line of the almanac. What is the lowest
+location number that corresponds to any of the initial seed numbers?
 
 ## Day 6:
 
