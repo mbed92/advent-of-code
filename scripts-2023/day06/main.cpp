@@ -27,11 +27,27 @@ std::multimap<uint64_t, uint64_t> readDocument(const std::vector<std::string> &l
     return map;
 }
 
+
+std::pair<uint64_t, uint64_t> readDocumentIgnoreSpaces(const std::vector<std::string> &lines) {
+    assert(lines.size() == 2);
+
+    auto time_idx = lines[0].rfind(utils::timeKey);
+    auto dist_idx = lines[1].rfind(utils::distanceKey);
+
+    auto time_str = std::string(&lines[0][time_idx + utils::timeKey.length() + 1]);
+    auto dist_str = std::string(&lines[1][dist_idx + utils::distanceKey.length() + 1]);
+
+    time_str.erase(std::remove_if(time_str.begin(), time_str.end(), isspace), time_str.end());
+    dist_str.erase(std::remove_if(dist_str.begin(), dist_str.end(), isspace), dist_str.end());
+
+    return std::pair(std::stoll(time_str), std::stoll(dist_str));
+}
+
 int main() {
     auto lines = common::loadTxtLineByLine("../day06/input.txt");
-    auto records = readDocument(lines);
 
     // Part 1
+    auto records = readDocument(lines);
     uint64_t part1_counter = 1;
     for (const auto &record: records) {
 
@@ -48,7 +64,17 @@ int main() {
     std::cout << "Part 1 result: " << part1_counter << std::endl;
 
     // Part 2
-
+    auto one_record = readDocumentIgnoreSpaces(lines);
+    uint64_t part2_counter = 1;
+    uint64_t race_counter = 0;
+    for (size_t h = 1; h < one_record.first; ++h) {
+        auto remaining_time = one_record.first - h;
+        auto reached_velocity = h;
+        auto distance = reached_velocity * remaining_time;
+        if (distance > one_record.second) race_counter++;
+    }
+    part2_counter *= race_counter;
+    std::cout << "Part 2 result: " << part2_counter << std::endl;
 
     return EXIT_SUCCESS;
 }
