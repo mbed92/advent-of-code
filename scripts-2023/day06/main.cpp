@@ -16,8 +16,8 @@ std::multimap<uint64_t, uint64_t> readDocument(const std::vector<std::string> &l
     auto time_str = std::string(&lines[0][time_idx + utils::timeKey.length() + 1]);
     auto dist_str = std::string(&lines[1][dist_idx + utils::distanceKey.length() + 1]);
 
-    auto time_vec = common::stringToVec(time_str);
-    auto dist_vec = common::stringToVec(dist_str);
+    auto time_vec = common::stringToVec<uint64_t>(time_str);
+    auto dist_vec = common::stringToVec<uint64_t>(dist_str);
 
     assert(time_vec.size() == dist_vec.size());
     std::multimap<uint64_t, uint64_t> map;

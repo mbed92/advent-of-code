@@ -14,7 +14,17 @@
 namespace common {
     std::vector<std::string> loadTxtLineByLine(const std::string &filename);
 
-    std::vector<size_t> stringToVec(const std::string &vecStr);
+    template<typename T>
+    std::vector<T>
+    stringToVec(const std::string &str) {
+        std::stringstream ss(str);
+        std::stringstream tmp;
+        std::istream_iterator<T> begin(ss);
+        std::istream_iterator<T> end;
+        std::vector<T> vec(begin, end);
+        std::copy(vec.begin(), vec.end(), std::ostream_iterator<T>(tmp));
+        return vec;
+    }
 
     std::set<uint16_t> stringToSet(const std::string &setStr);
 }

@@ -1,6 +1,4 @@
 #include <map>
-#include <iterator>
-#include <sstream>
 
 #include "../common.hpp"
 
@@ -24,7 +22,7 @@ getSeedIds(const std::vector<std::string> &lines) {
         auto ind = l.rfind(utils::seeds_string);
         if (ind != std::string::npos) {
             auto indices_str = std::string(&l[ind + utils::seeds_string.length() + 1]);
-            auto indices_vec = common::stringToVec(indices_str);
+            auto indices_vec = common::stringToVec<size_t>(indices_str);
             return indices_vec;
         }
     }
@@ -36,7 +34,7 @@ getSeedRanges(const std::vector<std::string> &lines) {
         auto ind = l.rfind(utils::seeds_string);
         if (ind != std::string::npos) {
             auto indices_str = std::string(&l[ind + utils::seeds_string.length() + 1]);
-            auto indices_vec = common::stringToVec(indices_str);
+            auto indices_vec = common::stringToVec<size_t>(indices_str);
 
             // this is a vector of pairs
             std::vector<std::pair<uint16_t, uint16_t>> indices_ranges;
@@ -60,7 +58,7 @@ getLocations(const std::vector<std::string> &lines, size_t seed, std::vector<std
             if (ind != std::string::npos) {
                 size_t k = 1;
                 while (i + k < lines.size() && !lines[i + k].empty()) {
-                    auto indices_vec = common::stringToVec(lines[i + k]);
+                    auto indices_vec = common::stringToVec<size_t>(lines[i + k]);
                     if (indices_vec[1] < key && key < indices_vec[1] + indices_vec[2]) {
                         key = indices_vec[0] + key - indices_vec[1];
                         maps_names.erase(maps_names.begin());
@@ -89,7 +87,7 @@ getRangeBasedLocations(const std::vector<std::string> &lines, std::pair<uint16_t
             if (ind != std::string::npos) {
                 size_t k = 1;
                 while (i + k < lines.size() && !lines[i + k].empty()) {
-                    auto indices_vec = common::stringToVec(lines[i + k]);
+                    auto indices_vec = common::stringToVec<size_t>(lines[i + k]);
                     auto start = indices_vec[1];
                     auto stop = indices_vec[1] + indices_vec[2];
 
